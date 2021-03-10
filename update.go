@@ -29,7 +29,7 @@ func Update() error {
 	var attributes = make(map[string]string)
 
 	{
-		resp := r.Get(`http://www.iotafinance.com/en/Classification-of-Financial-Instrument-codes-CFI-ISO-10962.html#cache=99999h`)
+		resp := r.Get(`http://www.iotafinance.com/en/Classification-of-Financial-Instrument-codes-CFI-ISO-10962.html#cache=inf`)
 		if resp.Error() != nil {
 			return resp.Error()
 		}
@@ -60,7 +60,7 @@ func Update() error {
 
 		time.Sleep(time.Second)
 
-		resp := r.Get(`http://www.iotafinance.com/en/Attributes-CFI-Codes-Group-` + t + `.html#cache=99999h`)
+		resp := r.Get(`http://www.iotafinance.com/en/Attributes-CFI-Codes-Group-` + t + `.html#cache=inf`)
 		if resp.Error() != nil {
 			return resp.Error()
 		}
