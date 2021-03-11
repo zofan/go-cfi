@@ -3,8 +3,8 @@ package cfi
 import (
 	"fmt"
 	"github.com/zofan/go-fwrite"
+	"github.com/zofan/go-norm"
 	"github.com/zofan/go-req"
-	"github.com/zofan/go-scraper"
 	"github.com/zofan/go-xmlre"
 	"path/filepath"
 	"runtime"
@@ -34,19 +34,19 @@ func Update() error {
 			return resp.Error()
 		}
 
-		body := scraper.ReplaceEntities(string(resp.ReadAll()))
+		body := norm.ReplaceEntities(string(resp.ReadAll()))
 
 		{
 			matches := typesRe.FindAllStringSubmatch(body, -1)
 			for _, m := range matches {
-				types[scraper.ClearHtml(m[1])] = scraper.ClearHtml(m[2])
+				types[norm.ClearHtml(m[1])] = norm.ClearHtml(m[2])
 			}
 		}
 
 		{
 			matches := subtypesRe.FindAllStringSubmatch(body, -1)
 			for _, m := range matches {
-				types[scraper.ClearHtml(m[1])] = ``
+				types[norm.ClearHtml(m[1])] = ``
 			}
 		}
 	}
@@ -65,7 +65,7 @@ func Update() error {
 			return resp.Error()
 		}
 
-		body := scraper.ReplaceEntities(string(resp.ReadAll()))
+		body := norm.ReplaceEntities(string(resp.ReadAll()))
 
 		headMatch := subtypeHeadRe.FindStringSubmatch(body)
 		types[t] = bracketsRe.ReplaceAllString(headMatch[1], ``)
@@ -79,7 +79,7 @@ func Update() error {
 			attributes[t+headMatch[1]] = headMatch[2]
 
 			for _, m := range kvMatches {
-				attributes[t+scraper.ClearHtml(headMatch[1])+scraper.ClearHtml(m[1])] = scraper.ClearHtml(m[2])
+				attributes[t+norm.ClearHtml(headMatch[1])+norm.ClearHtml(m[1])] = norm.ClearHtml(m[2])
 			}
 		}
 	}
