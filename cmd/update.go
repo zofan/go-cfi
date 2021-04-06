@@ -1,8 +1,8 @@
 package main
 
 import (
-	"../../cfi"
 	"fmt"
+	"github.com/zofan/go-cfi"
 )
 
 func main() {
